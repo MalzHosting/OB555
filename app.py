@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+def flask import Flask, request, jsonify
 import asyncio
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
@@ -135,30 +135,52 @@ def make_request(encrypt, region, token):
             url = "https://client.us.freefiremobile.com/GetPlayerPersonalShow"
         else:
             url = "https://clientbp.ggpolarbear.com/GetPlayerPersonalShow"
+
         edata = bytes.fromhex(encrypt)
+
         headers = {
             "User-Agent": "Dalvik/2.1.0 (Linux; U; Android 9; ASUS_Z01QD Build/PI)",
             "Connection": "Keep-Alive",
             "Accept-Encoding": "gzip",
             "Authorization": f"Bearer {token}",
             "Content-Type": "application/x-www-form-urlencoded",
-            "Expect": "100-continue",
             "X-Unity-Version": "2018.4.11f1",
             "X-GA": "v1 1",
             "ReleaseVersion": "OB55"
         }
-        response = requests.post(url, data=edata, headers=headers, verify=False)
-        binary = response.content
+
+        response = requests.post(
+            url,
+            data=edata,
+            headers=headers,
+            verify=False,
+            timeout=15
+        )
+
+        app.logger.error(
+            f"UPSTREAM STATUS={response.status_code} "
+            f"TYPE={response.headers.get('Content-Type')} "
+            f"LEN={len(response.content)}"
+        )
+
+        if response.status_code != 200:
+            app.logger.error(
+                f"UPSTREAM BODY={response.text[:500]}"
+            )
+            return None
+
         decoded = visit_count_pb2.Info()
-        decoded.ParseFromString(binary)
+        decoded.ParseFromString(response.content)
+
         return decoded
+
     except DecodeError as e:
-        app.logger.error(f"DecodeError: {e}")
-        return None
-    except Exception as e:
-        app.logger.error(f"Error in make_request: {e}")
+        app.logger.error(f"PROTOBUF DECODE ERROR: {e}")
         return None
 
+    except Exception as e:
+        app.logger.exception(f"MAKE REQUEST ERROR: {e}")
+        return none
 
 @app.route('/like', methods=['GET'])
 def handle_requests():
