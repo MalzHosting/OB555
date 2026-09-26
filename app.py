@@ -130,7 +130,7 @@ def enc(uid):
 def make_request(encrypt, region, token):
     try:
         if region == "ID":
-            url = "https://client.id.freefiremobile.com/GetPlayerPersonalShow"
+            url = "https://client.ind.freefiremobile.com/GetPlayerPersonalShow"
         elif region in {"BR", "US", "SAC", "NA"}:
             url = "https://client.us.freefiremobile.com/GetPlayerPersonalShow"
         else:
