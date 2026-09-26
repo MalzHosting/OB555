@@ -132,7 +132,7 @@ def make_request(encrypt, region, token):
         if region == "ID":
             url = "https://clientbp.ggpolarbear.com/GetPlayerPersonalShow"
         elif region in {"BR", "US", "SAC", "NA"}:
-            url = "https://client.us.freefiremobile.com/GetPlayerPersonalShow"
+            url = "https://clientbp.ggpolarbear.com/GetPlayerPersonalShow"
         else:
             url = "https://clientbp.ggpolarbear.com/GetPlayerPersonalShow"
 
@@ -223,7 +223,7 @@ def handle_requests():
             if region == "ID":
                 url = "https://clientbp.ggpolarbear.com/LikeProfile"
             elif region in {"BR", "US", "SAC", "NA"}:
-                url = "https://client.us.freefiremobile.com/LikeProfile"
+                url = "https://clientbp.ggpolarbear.com/LikeProfile"
             else:
                 url = "https://clientbp.ggpolarbear.com/LikeProfile"
 
