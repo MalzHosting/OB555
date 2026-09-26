@@ -130,7 +130,7 @@ def enc(uid):
 def make_request(encrypt, region, token):
     try:
         if region == "ID":
-            url = "https://client.ind.freefiremobile.com/GetPlayerPersonalShow"
+            url = "https://clientbp.ggpolarbear.com/GetPlayerPersonalShow"
         elif region in {"BR", "US", "SAC", "NA"}:
             url = "https://client.us.freefiremobile.com/GetPlayerPersonalShow"
         else:
@@ -198,8 +198,8 @@ def handle_requests():
                 raise Exception("Failed to get initial info.")
             before_like = before.AccountInfo.Likes
 
-            if region == "IND":
-                url = "https://client.ind.freefiremobile.com/LikeProfile"
+            if region == "ID":
+                url = "https://clientbp.ggpolarbear.com/LikeProfile"
             elif region in {"BR", "US", "SAC", "NA"}:
                 url = "https://client.us.freefiremobile.com/LikeProfile"
             else:
