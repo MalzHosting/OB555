@@ -180,7 +180,7 @@ def make_request(encrypt, region, token):
 
     except Exception as e:
         app.logger.exception(f"MAKE REQUEST ERROR: {e}")
-        return none
+        return None
 
 @app.route('/like', methods=['GET'])
 def handle_requests():
